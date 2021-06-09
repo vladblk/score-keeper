@@ -11,29 +11,27 @@
   <div class="wrapper">
     <h1>Score Keeper</h1>
 
-    <div class="score-display-container">
-      <p class="player-1-text">Player 1</p>: <span class="player-1-score">0</span>
-      <p class="player-2-text">Player 2</p>: <span class="player-2-score">0</span>
+    <div class="select-players">
+      <form class="select-players-form">
+        <label>Select the numbers of players</label>
+        <input type="text" class="select-players-input" />
+        <button class="choose-players-btn">Choose Players</button>
+      </form>
     </div>
 
-    <div class="score-limit-container">
-      <label>Playing To</label>
-      <select name="score" id="score">
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-        <option value="20">20</option>
-      </select>
+    <div class="choose-players-name-container">
+      
     </div>
 
-    <div class="btn-container">
-      <button class="player-1-btn">+1 Player One</button>
-      <button class="player-2-btn">+1 Player Two</button>
-      <button class="reset-btn">Reset</button>
+    <div class="players-container">
+      
     </div>
-  </div>
 
 
+  <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"></script>
   <script src="script.js"></script>
 </body>
 </html>

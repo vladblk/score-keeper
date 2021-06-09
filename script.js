@@ -1,73 +1,85 @@
-const player1ScoreUI = document.querySelector('.player-1-score');
-const player2ScoreUI = document.querySelector('.player-2-score');
-const selectScore = document.querySelector('#score');
-const player1Btn = document.querySelector('.player-1-btn');
-const player2Btn = document.querySelector('.player-2-btn');
-const resetBtn = document.querySelector('.reset-btn');
+// variables
+const selectPlayersInput = document.querySelector('.select-players-input');
+const choosePlayersBtn = document.querySelector('.choose-players-btn');
+const choosePlayersNameContainer = document.querySelector('.choose-players-name-container');
+const playersContainer = document.querySelector('.players-container');
 
-console.log(selectScore.value);
+let totalPlayers;
+// functions
 
-let totalPlayer1Score = 0;
-let totalPlayer2Score = 0;
-let playingTo = Number(selectScore.value);
 
-selectScore.addEventListener('change', (e) => {
-  console.log(e.target.value);
+// event listeners
 
-  playingTo = Number(e.target.value);
-});
+// choose players btn event listener
+choosePlayersBtn.addEventListener('click', (e) => {
+  // prevent the form from reloadind the page
+  e.preventDefault();
 
-const checkScore = () => {
-  if (playingTo === totalPlayer1Score) {
-    player1ScoreUI.style.color = "green";
-    player2ScoreUI.style.color = "red";
-  
-    player1Btn.disabled = true;
-    player2Btn.disabled = true;
+  // clean childs inside dom element after each click
+  choosePlayersNameContainer.innerHTML = '';
 
-    console.log("Player 1 WON!");
+  // get the number of players from the input
+  const numOfPlayers = parseInt(selectPlayersInput.value);
+
+  if (numOfPlayers) {
+    if (numOfPlayers < 11) {
+      // loop over the number of players selected above
+      for (let i = 0; i < numOfPlayers; i++) {
+
+        // for each num of players, create html
+        const html = `
+        <div>
+          <label class="player-${i}">Choose name for Player ${i}</label>
+          <input type="text" class="player-${i}-input total-players" />
+        </div>
+      `
+        // add the option for each player to choose their names to the dom
+        choosePlayersNameContainer.insertAdjacentHTML('beforeend', html);
+      }
+      // create button and add it to the dom
+      const btn = `<button class="start-game-btn">Start Game</button>`;
+      choosePlayersNameContainer.insertAdjacentHTML('beforeend', btn);  
+    }
   }
-  if (playingTo === totalPlayer2Score) {
-    player2ScoreUI.style.color = "green";
-    player1ScoreUI.style.color = "red";
-  
-    player1Btn.disabled = true;
-    player2Btn.disabled = true;
-
-    console.log("Player 2 WON!");
-  }
-}
-
-const init = () => {
-  totalPlayer1Score = 0;
-  totalPlayer2Score = 0;
-  player1ScoreUI.textContent = 0;
-  player2ScoreUI.textContent = 0;
-
-  player2ScoreUI.style.color = "#000";
-  player1ScoreUI.style.color = "#000";
-
-  player1Btn.disabled = false;
-  player2Btn.disabled = false;
-}
-init();
-
-player1Btn.addEventListener('click', () => {
-  totalPlayer1Score += 1;
-  player1ScoreUI.textContent = totalPlayer1Score;
-
-  console.log(totalPlayer1Score);
-
-  checkScore();
 });
 
-player2Btn.addEventListener('click', () => {
-  totalPlayer2Score += 1;
-  player2ScoreUI.textContent = totalPlayer2Score;
+// adding event listener to start button after the page loaded
+$(document).on('click', '.start-game-btn', function() {
+  console.log('clicked');
 
-  console.log(totalPlayer2Score);
+  // get all the players inputs
+  totalPlayers = document.querySelectorAll('.total-players');
+  console.log(totalPlayers);
 
-  checkScore();
+  // create an empty array what will store each player as an object
+  let players = [];
+
+  // loop through every player
+  for(let i = 0; i < totalPlayers.length; i++) {
+    // get his name if he chose to select a name, else put a default name
+    let name;
+    if (totalPlayers[i].value === '') {
+      name = `Player ${i + 1}`;
+    } else {
+      name = `${totalPlayers[i].value}`;
+    }
+
+    const html = `
+        <p class="player-${i}-name">${name}</p> <span class="player-${i}-display">0</span>
+        <button class="player-${i}-btn">+1 ${name}</button>
+    `
+
+    // add players to DOM
+    playersContainer.insertAdjacentHTML('beforeend', html);
+
+    
+    // store each player in an object
+    players[i] = {
+      name: name,
+      button: document.querySelector(`.player-${i}-btn`),
+      score: 0,
+      display: document.querySelector(`.player-${i}-display`)
+    };
+  };
+  console.log(players);
 });
-
-resetBtn.addEventListener('click', init);
