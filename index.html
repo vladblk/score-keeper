@@ -11,7 +11,21 @@
   <div class="wrapper">
     <h1>Score Keeper</h1>
 
-    <div class="select-players">
+    <div class="score-select-container">
+      <label for="score-select">Choose maximum score:</label>
+
+      <select name="scores" id="score-select">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="25">25</option>
+          <option value="30">30</option>
+          <option value="50">50</option>
+      </select>
+    </div>
+
+    <div class="players-select-container">
       <form class="select-players-form">
         <label>Select the numbers of players</label>
         <input type="text" class="select-players-input" />
