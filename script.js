@@ -68,7 +68,7 @@ choosePlayersBtn.addEventListener('click', (e) => {
         choosePlayersNameContainer.insertAdjacentHTML('beforeend', html);
       }
       // create button and add it to the dom
-      const btn = `<button class="start-game-btn">Start Game</button>`;
+      const btn = `<button class="start-game-btn btn">Start Game</button>`;
       choosePlayersNameContainer.insertAdjacentHTML('beforeend', btn);  
     }
   }
