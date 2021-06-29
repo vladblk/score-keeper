@@ -15,13 +15,14 @@ body {
   align-items: center;
   justify-content: center;
 
-  font-size: 2rem;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 67.5%;
 }
 
 .wrapper {
   background: white;
   min-height: 80vh;
-  width: 60%;
+  width: 70%;
   background: linear-gradient(
     to right bottom,
     rgba(255, 255, 255, 0.7),
@@ -48,6 +49,7 @@ h1 {
 
 .score-select-container label {
   margin-right: .5rem;
+  font-size: 2rem;
 }
 
 #score-select {
@@ -62,6 +64,8 @@ h1 {
   width: 6rem;
   border: none;
   border-radius: 2rem;
+
+  cursor: pointer;
 }
 
 .select-players-form {
@@ -69,6 +73,10 @@ h1 {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+.select-players-form label {
+  font-size: 2rem;
 }
 
 .select-players-form label, .select-players-form input, .select-players-form button {
@@ -82,11 +90,13 @@ h1 {
   background: linear-gradient(
     to right bottom,
     rgba(255, 255, 255, 0.7),
-    rgba(255, 255, 255, 0.3)
+    rgba(255, 255, 255, 0.5)
   );
   width: 6rem;
   border: none;
   border-radius: 2rem;
+
+  cursor: pointer;
 }
 
 .btn {
@@ -96,13 +106,18 @@ h1 {
   font-size: 2rem;
   background: linear-gradient(
     to right bottom,
-    rgba(255, 255, 255, 0.7),
-    rgba(255, 255, 255, 0.3)
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.6)
   );
   border: none;
   border-radius: 2rem;
 
   cursor: pointer;
+
+  transition: all .2s ease-in-out;
+}
+.btn:hover {
+  transform: translateY(-2px);
 }
 
 .total-players {
@@ -144,6 +159,43 @@ h1 {
 }
 
 .start-game-btn {
-  display: inline-flex;
-  align-self: center;
+  margin-top: 1rem;
+}
+
+.players-container div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2rem 0;
+}
+
+.players-container p {
+  font-size: 2rem;
+}
+
+.players-container div p, .players-container div span {
+  margin-right: 2rem;
+}
+
+.players-container div span {
+  font-size: 3rem;
+}
+
+.play-again-btn {
+  margin-right: 2rem;
+
+  background: rgb(70,184,252);
+  background: linear-gradient(90deg, rgba(70,184,252,1) 0%, rgba(64,99,250,1) 100%); 
+  color: white;
+}
+
+.reset-btn {
+  background: rgb(252,88,70);
+  background: linear-gradient(90deg, rgba(252,88,70,1) 0%, rgba(250,64,180,1) 100%);
+  color: white;
+}
+
+.disabled {
+  cursor: auto;
 }

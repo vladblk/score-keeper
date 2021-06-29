@@ -30,6 +30,7 @@ const init = () => {
     document.querySelector(`.player-${i}-display`).style.color = "black";
     players[i].winner = false;
     players[i].button.disabled = false;
+    players[i].button.classList.remove('disabled');
     players[i].score = 0;
     document.querySelector(`.player-${i}-display`).textContent = players[i].score;
   }
@@ -94,8 +95,10 @@ $(document).on('click', '.start-game-btn', function() {
     }
 
     const html = `
-        <p class="player-${i}-name">${name}</p> <span class="player-${i}-display">0</span>
-        <button class="player-${i}-btn btn" data-id="${i}">+1 ${name}</button>   
+        <div>
+          <p class="player-${i}-name">${name}</p> <span class="player-${i}-display">0</span>
+          <button class="player-${i}-btn btn" data-id="${i}">+1 ${name}</button>   
+        </div>
     `
 
     // add players to DOM
@@ -114,8 +117,8 @@ $(document).on('click', '.start-game-btn', function() {
 
   const resetBtnHTML = `
     <div class="reset-game">
-      <button class="play-again-btn">Play Again</button>
-      <button class="reset-btn">Reset</button>
+      <button class="play-again-btn btn">Play Again</button>
+      <button class="reset-btn btn">Reset</button>
     </div>
   `;
   playersContainer.insertAdjacentHTML('beforeend', resetBtnHTML);
@@ -142,6 +145,7 @@ playersContainer.addEventListener('click', (e) => {
 
     for (let i = 0; i < players.length; i++) {
       players[i].button.disabled = true;
+      players[i].button.classList.add('disabled');
 
       if (players[i].winner === true) {
         alert(`${players[i].name} is the winner!`);
@@ -160,8 +164,8 @@ $(document).on('click', '.reset-btn', function() {
 
   removeAllChildNodes(playersContainer);
 
-  scoreSelectContainer.style.display = "block";
-  playersSelectContainer.style.display = "block";
-  choosePlayersNameContainer.style.display = "block";
-  startGameBtn.style.display = "block";
+  scoreSelectContainer.style.display = "flex";
+  playersSelectContainer.style.display = "flex";
+  choosePlayersNameContainer.style.display = "flex";
+  startGameBtn.style.display = "flex";
 });
