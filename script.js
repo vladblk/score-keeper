@@ -10,6 +10,7 @@ const playersSelectContainer = document.querySelector('.players-select-container
 const scoreSelectContainer = document.querySelector('.score-select-container');
 
 const scoreSelectUI = document.querySelector('#score-select');
+const playersSelectUI = document.querySelector('#players-select');
 
 let totalPlayers;
 // create an empty array what will store each player as an object
@@ -32,6 +33,7 @@ const init = () => {
     players[i].button.disabled = false;
     players[i].button.classList.remove('disabled');
     players[i].score = 0;
+    players[i].button.parentElement.classList.remove('winner');
     document.querySelector(`.player-${i}-display`).textContent = players[i].score;
   }
 };
@@ -43,7 +45,7 @@ scoreSelectUI.addEventListener('change', (e) => {
 });
 
 // choose players btn event listener
-choosePlayersBtn.addEventListener('click', (e) => {
+playersSelectUI.addEventListener('change', (e) => {
   // prevent the form from reloadind the page
   e.preventDefault();
 
@@ -51,7 +53,7 @@ choosePlayersBtn.addEventListener('click', (e) => {
   choosePlayersNameContainer.innerHTML = '';
 
   // get the number of players from the input
-  const numOfPlayers = parseInt(selectPlayersInput.value);
+  const numOfPlayers = parseInt(playersSelectUI.value);
 
   if (numOfPlayers) {
     if (numOfPlayers < 11) {
@@ -95,7 +97,7 @@ $(document).on('click', '.start-game-btn', function() {
     }
 
     const html = `
-        <div>
+        <div class="player-container">
           <p class="player-${i}-name">${name}</p> <span class="player-${i}-display">0</span>
           <button class="player-${i}-btn btn" data-id="${i}">+1 ${name}</button>   
         </div>
@@ -115,13 +117,13 @@ $(document).on('click', '.start-game-btn', function() {
     };
   };
 
-  const resetBtnHTML = `
+  const playResetBtns = `
     <div class="reset-game">
       <button class="play-again-btn btn">Play Again</button>
       <button class="reset-btn btn">Reset</button>
     </div>
   `;
-  playersContainer.insertAdjacentHTML('beforeend', resetBtnHTML);
+  playersContainer.insertAdjacentHTML('beforeend', playResetBtns);
 
   console.log(players);
 
@@ -141,14 +143,15 @@ playersContainer.addEventListener('click', (e) => {
 
   if (players[clickedBtnID].score === scoreSelect) {
     players[clickedBtnID].winner = true;
-    document.querySelector(`.player-${clickedBtnID}-display`).style.color = "green";
 
     for (let i = 0; i < players.length; i++) {
       players[i].button.disabled = true;
       players[i].button.classList.add('disabled');
+      players[i].button.style.transition = 'none';
 
       if (players[i].winner === true) {
-        alert(`${players[i].name} is the winner!`);
+        const playerContainer = document.querySelector(`.player-${clickedBtnID}-display`).parentElement;
+        playerContainer.classList.add('winner');
       }
     }
   }

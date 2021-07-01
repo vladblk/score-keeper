@@ -15,8 +15,8 @@ body {
   align-items: center;
   justify-content: center;
 
-  font-family: 'Roboto Mono', monospace;
   font-size: 67.5%;
+  font-family: 'Roboto Mono', monospace;
 }
 
 .wrapper {
@@ -68,22 +68,21 @@ h1 {
   cursor: pointer;
 }
 
-.select-players-form {
+.players-select-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
 }
 
-.select-players-form label {
+.players-select-container label {
   font-size: 2rem;
 }
 
-.select-players-form label, .select-players-form input, .select-players-form button {
-  margin: .7rem 0;
+.players-select-container label{
+  margin-right: .7rem;
 }
 
-.select-players-input {
+#players-select {
   border: none;
   text-align: center;
   font-size: 2rem;
@@ -170,6 +169,11 @@ h1 {
   padding: 2rem 0;
 }
 
+.players-container div:not(:last-child) {
+  padding: 2rem;
+  border-radius: 2rem;
+}
+
 .players-container p {
   font-size: 2rem;
 }
@@ -199,3 +203,17 @@ h1 {
 .disabled {
   cursor: auto;
 }
+
+.winner {
+  background: rgb(70,252,128);
+  background: linear-gradient(90deg, rgba(70,252,128,1) 0%, rgba(64,250,189,1) 100%);
+
+  color: white;
+}
+
+/* .notransition {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
+} */
