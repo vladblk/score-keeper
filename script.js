@@ -27,15 +27,14 @@ const removeAllChildNodes = (parent) => {
 
 
 const init = () => {
-  for (let i = 0; i < players.length; i++) {
-    document.querySelector(`.player-${i}-display`).style.color = "black";
-    players[i].winner = false;
-    players[i].button.disabled = false;
-    players[i].button.classList.remove('disabled');
-    players[i].score = 0;
-    players[i].button.parentElement.classList.remove('winner');
+  players.forEach((player, i) => {
+    player.winner = false;
+    player.button.disabled = false;
+    player.button.classList.remove('disabled');
+    player.score = 0;
+    player.button.parentElement.classList.remove('winner');
     document.querySelector(`.player-${i}-display`).textContent = players[i].score;
-  }
+  });
 };
 init();
 
@@ -55,26 +54,22 @@ playersSelectUI.addEventListener('change', (e) => {
   // get the number of players from the input
   const numOfPlayers = parseInt(playersSelectUI.value);
 
-  if (numOfPlayers) {
-    if (numOfPlayers < 11) {
-      // loop over the number of players selected above
-      for (let i = 0; i < numOfPlayers; i++) {
+  // loop over the number of players selected above
+  for (let i = 0; i < numOfPlayers; i++) {
 
-        // for each num of players, create html
-        const html = `
-        <div>
-          <label class="player-${i}">Choose name for Player ${i+1}</label>
-          <input type="text" class="player-${i}-input total-players" />
-        </div>
-      `
-        // add the option for each player to choose their names to the dom
-        choosePlayersNameContainer.insertAdjacentHTML('beforeend', html);
-      }
-      // create button and add it to the dom
-      const btn = `<button class="start-game-btn btn">Start Game</button>`;
-      choosePlayersNameContainer.insertAdjacentHTML('beforeend', btn);  
-    }
+    // for each num of players, create html
+    const html = `
+    <div>
+      <label class="player-${i}">Choose name for Player ${i+1}</label>
+      <input type="text" class="player-${i}-input total-players" />
+    </div>
+  `
+    // add the option for each player to choose their names to the dom
+    choosePlayersNameContainer.insertAdjacentHTML('beforeend', html);
   }
+  // create button and add it to the dom
+  const startGameBtn = `<button class="start-game-btn btn">Start Game</button>`;
+  choosePlayersNameContainer.insertAdjacentHTML('beforeend', startGameBtn);  
 });
 
 // adding event listener to start button after the page loaded
@@ -84,16 +79,15 @@ $(document).on('click', '.start-game-btn', function() {
 
   // get all the players inputs
   totalPlayers = document.querySelectorAll('.total-players');
-  console.log(totalPlayers);
 
   // loop through every player
-  for(let i = 0; i < totalPlayers.length; i++) {
+  totalPlayers.forEach((player, i) => {
     // get his name if he chose to select a name, else put a default name
     let name;
-    if (totalPlayers[i].value === '') {
+    if (player.value === '') {
       name = `Player ${i + 1}`;
     } else {
-      name = `${totalPlayers[i].value}`;
+      name = `${player.value}`;
     }
 
     const html = `
@@ -115,7 +109,7 @@ $(document).on('click', '.start-game-btn', function() {
       display: document.querySelector(`.player-${i}-display`),
       winner: false
     };
-  };
+  });
 
   const playResetBtns = `
     <div class="reset-game">
@@ -125,11 +119,7 @@ $(document).on('click', '.start-game-btn', function() {
   `;
   playersContainer.insertAdjacentHTML('beforeend', playResetBtns);
 
-  console.log(players);
-
-  choosePlayersNameContainer.style.display = "none";
-  startGameBtn.style.display = "none";
-  
+  choosePlayersNameContainer.style.display = "none";  
 });
 
 
@@ -138,22 +128,24 @@ playersContainer.addEventListener('click', (e) => {
 
   const clickedBtnID = e.target.dataset.id;
 
+  if (!clickedBtnID) return;
+
   players[clickedBtnID].score += 1;
   document.querySelector(`.player-${clickedBtnID}-display`).textContent = players[clickedBtnID].score;
 
   if (players[clickedBtnID].score === scoreSelect) {
     players[clickedBtnID].winner = true;
 
-    for (let i = 0; i < players.length; i++) {
-      players[i].button.disabled = true;
-      players[i].button.classList.add('disabled');
-      players[i].button.style.transition = 'none';
+    players.forEach(player => {
+      player.button.disabled = true;
+      player.button.classList.add('disabled');
+      player.button.style.transition = 'none';
 
-      if (players[i].winner === true) {
+      if (player.winner === true) {
         const playerContainer = document.querySelector(`.player-${clickedBtnID}-display`).parentElement;
         playerContainer.classList.add('winner');
       }
-    }
+    });
   }
 });
 
@@ -170,5 +162,4 @@ $(document).on('click', '.reset-btn', function() {
   scoreSelectContainer.style.display = "flex";
   playersSelectContainer.style.display = "flex";
   choosePlayersNameContainer.style.display = "flex";
-  startGameBtn.style.display = "flex";
 });
